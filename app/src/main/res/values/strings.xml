@@ -4,7 +4,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
-    <string name="valid">Valid</string>
+    <string name="ok">Ok</string>
     <string name="loading">Loading</string>
 
     <string name="error_occurred">Error occurred</string>
@@ -30,6 +30,7 @@
     <string name="category">Category</string>
     <string name="budgets">Budgets</string>
     <string name="budget">Budget</string>
+    <string name="target_budget">Target Budget</string>
     <string name="budget_label">Budget: %1$s</string>
     <string name="no_default_budget">No default budget</string>
     <string name="default_budget">Default budget</string>

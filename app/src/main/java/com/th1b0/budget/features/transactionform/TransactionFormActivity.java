@@ -24,6 +24,8 @@ import com.th1b0.budget.model.Transaction;
 import com.th1b0.budget.util.BudgetPickerDialog;
 import com.th1b0.budget.util.DataManager;
 import com.th1b0.budget.util.DateUtil;
+import com.th1b0.budget.util.TargetBudgetPickerDialog;
+
 import java.util.ArrayList;
 
 /**
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 
 public final class TransactionFormActivity extends AppCompatActivity
     implements DatePickerDialog.OnDateSetListener, CategoryDialog.OnCategorySet,
-    TransactionFormView, BudgetPickerDialog.OnBudgetSet {
+    TransactionFormView, BudgetPickerDialog.OnBudgetSet, TargetBudgetPickerDialog.OnTargetBudgetSet {
 
   private ActivityTransactionFormBinding mView;
   private Transaction mTransaction;
@@ -183,6 +185,11 @@ public final class TransactionFormActivity extends AppCompatActivity
       int position = findBudgetPosition(mTransaction.getIdBudget());
       BudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
+
+    mView.containerLayoutTarget.setOnClickListener(v -> {
+      hideKeyboard();
+      TargetBudgetPickerDialog.newInstance(mBudgets, 0).show(getFragmentManager(), null);
+    });
   }
 
   private void updateTransactionFromForm() {
@@ -245,6 +252,11 @@ public final class TransactionFormActivity extends AppCompatActivity
   @Override public void onBudgetSet(@NonNull Budget budget) {
     mTransaction.setIdBudget(budget.getId());
     mView.budget.setText(budget.getTitle());
+  }
+
+  @Override public void onTargetBudgetSet(@NonNull Budget budget) {
+    mTransaction.setIdTargetBudget(budget.getId());
+    mView.targetBudget.setText(budget.getTitle());
   }
 
   @Override public void onCategoriesLoaded(@NonNull ArrayList<Category> categories) {

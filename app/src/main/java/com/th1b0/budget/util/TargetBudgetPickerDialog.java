@@ -7,8 +7,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import com.th1b0.budget.R;
 import com.th1b0.budget.model.Budget;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +18,18 @@ import java.util.List;
  * Created by 7h1b0.
  */
 
-public final class BudgetPickerDialog extends DialogFragment {
+public final class TargetBudgetPickerDialog extends DialogFragment {
 
   public static final String SELECTED = "position";
 
-  public interface OnBudgetSet {
-    void onBudgetSet(@NonNull Budget budget);
+  public interface OnTargetBudgetSet {
+    void onTargetBudgetSet(@NonNull Budget budget);
   }
 
-  private OnBudgetSet mListener;
+  private OnTargetBudgetSet mListener;
 
-  public static BudgetPickerDialog newInstance(ArrayList<Budget> budgets, int position) {
-    BudgetPickerDialog dialog = new BudgetPickerDialog();
+  public static TargetBudgetPickerDialog newInstance(ArrayList<Budget> budgets, int position) {
+    TargetBudgetPickerDialog dialog = new TargetBudgetPickerDialog();
     Bundle args = new Bundle();
     args.putParcelableArrayList(Budget.BUDGETS, budgets);
     args.putInt(SELECTED, position);
@@ -37,10 +39,10 @@ public final class BudgetPickerDialog extends DialogFragment {
 
   @Override public void onAttach(Activity activity) {
     super.onAttach(activity);
-    if (!(activity instanceof OnBudgetSet)) {
-      throw new IllegalStateException("Activity must implement OnBudgetSet. Found: " + activity);
+    if (!(activity instanceof OnTargetBudgetSet)) {
+      throw new IllegalStateException("Activity must implement OnTargetBudgetSet. Found: " + activity);
     } else {
-      mListener = (OnBudgetSet) activity;
+      mListener = (OnTargetBudgetSet) activity;
     }
   }
 
@@ -61,7 +63,7 @@ public final class BudgetPickerDialog extends DialogFragment {
           final int selectedCategory =
               ((AlertDialog) dialog).getListView().getCheckedItemPosition();
           if (mListener != null && selectedCategory < budgets.size() && selectedCategory >= 0) {
-            mListener.onBudgetSet(budgets.get(selectedCategory));
+            mListener.onTargetBudgetSet(budgets.get(selectedCategory));
           }
         })
         .setNegativeButton(R.string.cancel, null)

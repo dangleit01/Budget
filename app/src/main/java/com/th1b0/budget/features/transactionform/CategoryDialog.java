@@ -56,7 +56,7 @@ public final class CategoryDialog extends DialogFragment {
 
     return new AlertDialog.Builder(getActivity()).setTitle(R.string.set_category)
         .setSingleChoiceItems(titles, position, null)
-        .setPositiveButton(R.string.valid, (dialog, which) -> {
+        .setPositiveButton(R.string.ok, (dialog, which) -> {
           final int selectedCategory =
               ((AlertDialog) dialog).getListView().getCheckedItemPosition();
           if (mListener != null && selectedCategory < categories.size() && selectedCategory >= 0) {

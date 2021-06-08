@@ -169,6 +169,45 @@
 
                     </RelativeLayout>
 
+                    <!-- Budget Target -->
+                    <RelativeLayout
+                        android:id="@+id/container_layout_target"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        >
+
+                        <ImageView
+                            android:id="@+id/container_icon_target"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/spacing_medium"
+                            android:src="@mipmap/ic_container"
+                            android:layout_centerVertical="true"
+                            style="@style/IconShort"
+                            />
+
+                        <TextView
+                            android:id="@+id/container_title_target"
+                            android:layout_toEndOf="@+id/container_icon_target"
+                            style="@style/TextBody"
+                            android:layout_marginStart="32dp"
+                            android:text="@string/target_budget"
+                            />
+
+                        <TextView
+                            android:id="@+id/target_budget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/container_title_target"
+                            android:layout_marginEnd="@dimen/spacing_medium"
+                            android:layout_marginStart="@dimen/spacing_huge"
+                            android:text="@string/loading"
+                            style="@style/TextSubheadOneLine"
+                            />
+
+                    </RelativeLayout>
+
                     <!-- Date -->
                     <FrameLayout
                         android:id="@+id/date_layout"

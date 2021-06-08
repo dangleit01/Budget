@@ -88,7 +88,7 @@ public final class ColorPickerDialog extends DialogFragment {
                 error -> Log.e("DetailsHueActivity", error.getMessage())));
 
     return new AlertDialog.Builder(getActivity()).setView(mView.getRoot())
-        .setPositiveButton(R.string.valid, (dialog, which) -> {
+        .setPositiveButton(R.string.ok, (dialog, which) -> {
           if (mListener != null) {
             mListener.onColorSet(mCurrentColor);
           }
