@@ -10,6 +10,9 @@ import com.th1b0.budget.R;
 import com.th1b0.budget.model.Transaction;
 import com.th1b0.budget.util.DateUtil;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by 7h1b0.
  */
@@ -34,7 +37,9 @@ final class TransactionViewHolder extends RecyclerView.ViewHolder {
     date.setText(
         DateUtil.formatDate(transaction.getYear(), transaction.getMonth(), transaction.getDay()));
 
-    value.setText(value.getContext().getString(R.string.float_value, transaction.getValue()));
+    NumberFormat formatter = new DecimalFormat(value.getContext().getString(R.string.decimal_format));
+    value.setText(formatter.format(transaction.getValue()));
+    //value.setText(value.getContext().getString(R.string.float_value, transaction.getValue()));
     category.setImageResource(transaction.getIcon());
 
     Drawable drawable = category.getBackground();

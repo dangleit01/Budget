@@ -20,6 +20,9 @@ import com.th1b0.budget.model.PresentationBalance;
 import com.th1b0.budget.model.PresentationBudget;
 import com.th1b0.budget.util.DataManager;
 import com.th1b0.budget.util.DateUtil;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -108,9 +111,13 @@ public final class BudgetMonthFragment extends Fragment
   }
 
   @Override public void onBalanceLoaded(@NonNull PresentationBalance balance) {
-    mView.balance.setText(getString(R.string.float_value, balance.getBalance()));
-    mView.incomes.setText(getString(R.string.float_value, balance.getIncomes()));
-    mView.expenses.setText(getString(R.string.float_value, balance.getExpenses()));
+    NumberFormat formatter = new DecimalFormat(getString(R.string.decimal_format));
+    mView.balance.setText(formatter.format(balance.getBalance()));
+    //mView.balance.setText(getString(R.string.float_value, balance.getBalance()));
+    mView.incomes.setText(formatter.format(balance.getIncomes()));
+    //mView.incomes.setText(getString(R.string.float_value, balance.getIncomes()));
+    mView.expenses.setText(formatter.format(balance.getExpenses()));
+    //mView.expenses.setText(getString(R.string.float_value, balance.getExpenses()));
   }
 
   @Override public void onError(@Nullable String error) {

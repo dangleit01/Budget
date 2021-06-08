@@ -18,8 +18,9 @@
     <string name="no_transaction">No transaction</string>
     <string name="no_history">No history</string>
 
-    <string name="float_value">%1$.2f€</string>
-    <string name="budget_of_goal">%1$.2f€ of %2$.2f€</string>
+    <string name="float_value">$%1$.2f</string>
+    <string name="budget_of_goal">$%1$.2f of $%2$.2f</string>
+    <string name="decimal_format">$ ###,###.###</string>
 
     <string name="title">Title</string>
     <string name="color">Color</string>

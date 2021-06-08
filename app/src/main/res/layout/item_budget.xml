@@ -29,7 +29,7 @@
             android:id="@+id/detail"
             android:gravity="center_vertical"
             android:textSize="@dimen/font_label"
-            tools:text="250 on 300€"
+            tools:text="$250 on $300"
             style="@style/TextBody"
             />
 
@@ -43,7 +43,7 @@
         android:layout_marginStart="@dimen/spacing_medium"
         android:gravity="center_vertical"
         android:textSize="@dimen/font_title"
-        tools:text="+ 50.00€"
+        tools:text="+ $50.00"
         style="@style/TextSubhead"
         />
 

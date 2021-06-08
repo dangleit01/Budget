@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.th1b0.budget.R;
 import com.th1b0.budget.model.SimpleItem;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static android.support.v7.widget.RecyclerView.NO_POSITION;
 
@@ -61,7 +65,10 @@ public final class SimpleItemAdapter<T extends SimpleItem>
     final Context context = holder.value.getContext();
 
     holder.title.setText(simpleItem.getTitle());
-    holder.value.setText(context.getString(R.string.float_value, simpleItem.getValue()));
+
+    NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
+    holder.value.setText(formatter.format(simpleItem.getValue()));
+    //holder.value.setText(context.getString(R.string.float_value, simpleItem.getValue()));
 
     if (showColor) {
       if (simpleItem.getValue() >= 0) {

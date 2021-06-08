@@ -26,7 +26,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font_display"
-                tools:text="11450.00€"
+                tools:text="$11450.00"
                 />
 
             <LinearLayout
@@ -59,7 +59,7 @@
                         android:layout_gravity="end"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/font_title"
-                        tools:text="356.00€"
+                        tools:text="$356.00"
                         style="@style/TextSubhead"
                         />
 
@@ -85,7 +85,7 @@
                         android:id="@+id/expenses"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/font_title"
-                        tools:text="250.00€"
+                        tools:text="$250.00"
                         style="@style/TextSubhead"
                         />
 

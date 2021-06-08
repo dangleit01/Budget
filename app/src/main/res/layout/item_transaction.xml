@@ -53,7 +53,7 @@
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginStart="@dimen/spacing_large"
 
-        tools:text="+ 34.05€"
+        tools:text="+ $34.05"
         style="@style/TextSubhead"
         />
 

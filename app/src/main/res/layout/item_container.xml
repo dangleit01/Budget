@@ -25,7 +25,7 @@
         android:layout_marginStart="@dimen/spacing_medium"
         android:gravity="center_vertical"
         android:textSize="@dimen/font_title"
-        tools:text="50.00€"
+        tools:text="$50.00"
         style="@style/TextSubhead"
         />
 
