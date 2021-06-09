@@ -56,7 +56,7 @@ final class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewBudget>
     final PresentationBudget budget = mItems.get(position);
     final double res = budget.getValue() + budget.getOut();
 
-    holder.detail.setText(CurrencyUtil.formatToUSD(budget.getValue()) + " of " + CurrencyUtil.formatToUSD(budget.getOut()));
+    holder.detail.setText(CurrencyUtil.formatToUSD(budget.getValue()) + context.getString(R.string.adding) + CurrencyUtil.formatToUSD(budget.getOut()));
     //NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
     //String formattedDetail = formatter.format(budget.getValue()) + " of " + formatter.format(budget.getOut());
     //holder.detail.setText(formattedDetail);
