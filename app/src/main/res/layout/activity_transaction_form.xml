@@ -69,7 +69,7 @@
                         <ImageView
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/spacing_medium"
-                            android:src="@mipmap/ic_value"
+                            android:src="@mipmap/ic_usd_dollar"
                             style="@style/IconShort"
                             />
 
