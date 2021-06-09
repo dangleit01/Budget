@@ -177,9 +177,9 @@
 
                     </RelativeLayout>
 
-                    <!-- Budget Target -->
+                    <!-- From Budget -->
                     <RelativeLayout
-                        android:id="@+id/container_layout_target"
+                        android:id="@+id/container_layout_from_budget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/spacing_medium"
@@ -187,7 +187,7 @@
                         >
 
                         <ImageView
-                            android:id="@+id/container_icon_target"
+                            android:id="@+id/container_icon_from_budget"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/spacing_medium"
                             android:src="@mipmap/ic_container"
@@ -196,18 +196,18 @@
                             />
 
                         <TextView
-                            android:id="@+id/container_title_target"
-                            android:layout_toEndOf="@+id/container_icon_target"
+                            android:id="@+id/container_title_from_budget"
+                            android:layout_toEndOf="@+id/container_icon_from_budget"
                             style="@style/TextBody"
                             android:layout_marginStart="32dp"
-                            android:text="@string/target_budget"
+                            android:text="@string/from_budget"
                             />
 
                         <TextView
-                            android:id="@+id/target_budget"
+                            android:id="@+id/from_budget"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/container_title_target"
+                            android:layout_below="@+id/container_title_from_budget"
                             android:layout_marginEnd="@dimen/spacing_medium"
                             android:layout_marginStart="@dimen/spacing_huge"
                             android:text="@string/loading"
@@ -215,8 +215,8 @@
                             />
 
                         <TextView
-                            android:id="@+id/target_budget_error"
-                            android:layout_below="@+id/target_budget"
+                            android:id="@+id/from_budget_error"
+                            android:layout_below="@+id/from_budget"
                             style="@style/TextError"
                             android:layout_marginStart="72dp"
                             android:visibility="gone"

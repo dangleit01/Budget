@@ -40,9 +40,9 @@ public final class TransactionTable extends Database {
         + ", "
         + Transaction.ID_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET
+        + Transaction.ID_FROM_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET_TRANSACTION
+        + Transaction.ID_FROM_BUDGET_TRANSACTION
         + ", "
         + Category.COLOR
         + ", "
@@ -95,9 +95,9 @@ public final class TransactionTable extends Database {
         + ", "
         + Transaction.ID_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET
+        + Transaction.ID_FROM_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET_TRANSACTION
+        + Transaction.ID_FROM_BUDGET_TRANSACTION
         + ", "
         + Category.COLOR
         + ", "
@@ -156,9 +156,9 @@ public final class TransactionTable extends Database {
         + ", "
         + Transaction.ID_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET
+        + Transaction.ID_FROM_BUDGET
         + ", "
-        + Transaction.ID_TARGET_BUDGET_TRANSACTION
+        + Transaction.ID_FROM_BUDGET_TRANSACTION
         + ", "
             + Category.COLOR
         + ", "
@@ -208,12 +208,12 @@ public final class TransactionTable extends Database {
       // insert transaction
       transactionId = db.insert(TABLE_TRANSACTION, getContentValues(transaction));
 
-      //insert target transaction
-      Transaction targetTransaction = new Transaction(transactionId, transaction);
-      long targetBudgetTransactionId = db.insert(TABLE_TRANSACTION, getContentValues(targetTransaction));
+      //insert from budget transaction
+      Transaction fromTransaction = new Transaction(transactionId, transaction);
+      long fromBudgetTransactionId = db.insert(TABLE_TRANSACTION, getContentValues(fromTransaction));
 
-      // update targetBudgetTransactionId for transaction
-      transaction.setIdTargetBudgetTransaction(targetBudgetTransactionId);
+      // update fromBudgetTransactionId for transaction
+      transaction.setIdFromBudgetTransaction(fromBudgetTransactionId);
       db.update(TABLE_TRANSACTION, getContentValues(transaction), Transaction.ID + " = ?",
               String.valueOf(transactionId));
 
@@ -232,9 +232,9 @@ public final class TransactionTable extends Database {
       iResult = db.delete(TABLE_TRANSACTION, Transaction.ID + " = ?",
               String.valueOf(transaction.getId()));
 
-      //delete target budget transaction
+      //delete from budget transaction
       db.delete(TABLE_TRANSACTION, Transaction.ID + " = ?",
-              String.valueOf(transaction.getIdTargetBudgetTransaction()));
+              String.valueOf(transaction.getIdFromBudgetTransaction()));
 
       databaseTransaction.markSuccessful();
     } finally {
@@ -263,10 +263,10 @@ public final class TransactionTable extends Database {
       iResult = db.update(TABLE_TRANSACTION, getContentValues(transaction), Transaction.ID + " = ?",
               String.valueOf(transaction.getId()));
 
-      // update targetBudgetTransaction (not allow change targetBudget)
-      Transaction targetTransaction = new Transaction(transaction.getId(), transaction);
-      db.update(TABLE_TRANSACTION, getContentValues(targetTransaction), Transaction.ID + " = ?",
-              String.valueOf(transaction.getIdTargetBudgetTransaction()));
+      // update fromBudgetTransaction (not allow change fromBudget)
+      Transaction fromTransaction = new Transaction(transaction.getId(), transaction);
+      db.update(TABLE_TRANSACTION, getContentValues(fromTransaction), Transaction.ID + " = ?",
+              String.valueOf(transaction.getIdFromBudgetTransaction()));
 
       databaseTransaction.markSuccessful();
     } finally {
@@ -284,8 +284,8 @@ public final class TransactionTable extends Database {
     values.put(Transaction.ID_CATEGORY, transaction.getIdCategory());
     values.put(Transaction.DESCRIPTION, transaction.getDescription());
     values.put(Transaction.ID_BUDGET, transaction.getIdBudget());
-    values.put(Transaction.ID_TARGET_BUDGET, transaction.getIdTargetBudget());
-    values.put(Transaction.ID_TARGET_BUDGET_TRANSACTION, transaction.getIdTargetBudgetTransaction());
+    values.put(Transaction.ID_FROM_BUDGET, transaction.getIdFromBudget());
+    values.put(Transaction.ID_FROM_BUDGET_TRANSACTION, transaction.getIdFromBudgetTransaction());
 
     return values;
   }
@@ -297,7 +297,7 @@ public final class TransactionTable extends Database {
         DbUtil.getInt(cursor, Transaction.ID_CATEGORY),
         DbUtil.getString(cursor, Transaction.DESCRIPTION), DbUtil.getInt(cursor, Category.COLOR),
         DbUtil.getInt(cursor, Category.ICON), DbUtil.getLong(cursor, Transaction.ID_BUDGET),
-        DbUtil.getLong(cursor, Transaction.ID_TARGET_BUDGET),DbUtil.getLong(cursor, Transaction.ID_TARGET_BUDGET_TRANSACTION));
+        DbUtil.getLong(cursor, Transaction.ID_FROM_BUDGET),DbUtil.getLong(cursor, Transaction.ID_FROM_BUDGET_TRANSACTION));
   }
 
   public Observable<Boolean> isEmpty() {

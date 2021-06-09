@@ -28,9 +28,8 @@ import com.th1b0.budget.util.BudgetPickerDialog;
 import com.th1b0.budget.util.CurrencyUtil;
 import com.th1b0.budget.util.DataManager;
 import com.th1b0.budget.util.DateUtil;
-import com.th1b0.budget.util.TargetBudgetPickerDialog;
+import com.th1b0.budget.util.FromBudgetPickerDialog;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +38,7 @@ import java.util.ArrayList;
 
 public final class TransactionFormActivity extends AppCompatActivity
     implements DatePickerDialog.OnDateSetListener, CategoryDialog.OnCategorySet,
-    TransactionFormView, BudgetPickerDialog.OnBudgetSet, TargetBudgetPickerDialog.OnTargetBudgetSet {
+    TransactionFormView, BudgetPickerDialog.OnBudgetSet, FromBudgetPickerDialog.OnFromBudgetSet {
 
   private ActivityTransactionFormBinding mView;
   private Transaction mTransaction;
@@ -116,7 +115,7 @@ public final class TransactionFormActivity extends AppCompatActivity
     mBudgets = savedInstanceState.getParcelableArrayList(Budget.BUDGETS);
     updateCategory();
     updateBudget();
-    updateTargetBudget();
+    updateFromBudget();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -172,14 +171,14 @@ public final class TransactionFormActivity extends AppCompatActivity
     }
   }
 
-  private void updateTargetBudget() {
-    int position = findBudgetPosition(mTransaction.getIdTargetBudget());
+  private void updateFromBudget() {
+    int position = findBudgetPosition(mTransaction.getIdFromBudget());
     if (position > -1) {
-      mView.targetBudget.setText(mBudgets.get(position).getTitle());
+      mView.fromBudget.setText(mBudgets.get(position).getTitle());
     } else {
       if(!mBudgets.isEmpty()) {
-        mTransaction.setIdTargetBudget(mBudgets.get(0).getId());
-        mView.targetBudget.setText(mBudgets.get(0).getTitle());
+        mTransaction.setIdFromBudget(mBudgets.get(0).getId());
+        mView.fromBudget.setText(mBudgets.get(0).getTitle());
       }
     }
   }
@@ -205,10 +204,10 @@ public final class TransactionFormActivity extends AppCompatActivity
       BudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
 
-    mView.containerLayoutTarget.setOnClickListener(v -> {
+    mView.containerLayoutFromBudget.setOnClickListener(v -> {
       hideKeyboard();
-      int position = findBudgetPosition(mTransaction.getIdTargetBudget());
-      TargetBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
+      int position = findBudgetPosition(mTransaction.getIdFromBudget());
+      FromBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
 
     mView.thousand.setOnClickListener(v -> {
@@ -289,12 +288,12 @@ public final class TransactionFormActivity extends AppCompatActivity
       mView.valueInputLayout.setErrorEnabled(false);
     }
 
-    if (mTransaction.getIdBudget() == mTransaction.getIdTargetBudget()) {
-      mView.targetBudgetError.setVisibility(View.VISIBLE);
-      mView.targetBudgetError.setText(getString(R.string.no_same_budget));
+    if (mTransaction.getIdBudget() == mTransaction.getIdFromBudget()) {
+      mView.fromBudgetError.setVisibility(View.VISIBLE);
+      mView.fromBudgetError.setText(getString(R.string.no_same_budget));
       isValid = false;
     } else {
-      mView.targetBudgetError.setVisibility(View.INVISIBLE);
+      mView.fromBudgetError.setVisibility(View.INVISIBLE);
     }
 
     return isValid;
@@ -325,9 +324,9 @@ public final class TransactionFormActivity extends AppCompatActivity
     mView.budget.setText(budget.getTitle());
   }
 
-  @Override public void onTargetBudgetSet(@NonNull Budget budget) {
-    mTransaction.setIdTargetBudget(budget.getId());
-    mView.targetBudget.setText(budget.getTitle());
+  @Override public void onFromBudgetSet(@NonNull Budget budget) {
+    mTransaction.setIdFromBudget(budget.getId());
+    mView.fromBudget.setText(budget.getTitle());
   }
 
   @Override public void onCategoriesLoaded(@NonNull ArrayList<Category> categories) {
@@ -356,7 +355,7 @@ public final class TransactionFormActivity extends AppCompatActivity
 
   @Override public void onBudgetsLoaded(@NonNull ArrayList<Budget> budgets) {
     mBudgets = budgets;
-    updateTargetBudget();
+    updateFromBudget();
   }
 
   @Override public void onError(@Nullable final String error) {

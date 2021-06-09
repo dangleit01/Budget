@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 abstract class Database extends SQLiteOpenHelper {
 
-  private static final int DATABASE_VERSION = 101;
+  private static final int DATABASE_VERSION = 102;
   private static final String DATABASE_NAME = "budget";
   static final String TABLE_TRANSACTION = "transaction_table";
   static final String TABLE_CATEGORY = "category_table";
@@ -51,9 +51,9 @@ abstract class Database extends SQLiteOpenHelper {
         + " INTEGER, "
         + Transaction.ID_BUDGET
         + " INTEGER, "
-        + Transaction.ID_TARGET_BUDGET
+        + Transaction.ID_FROM_BUDGET
         + " INTEGER, "
-        + Transaction.ID_TARGET_BUDGET_TRANSACTION
+        + Transaction.ID_FROM_BUDGET_TRANSACTION
         + " INTEGER, "
         + Transaction.DESCRIPTION
         + " TEXT ) ";

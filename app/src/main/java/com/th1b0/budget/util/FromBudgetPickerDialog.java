@@ -18,18 +18,18 @@ import java.util.List;
  * Created by 7h1b0.
  */
 
-public final class TargetBudgetPickerDialog extends DialogFragment {
+public final class FromBudgetPickerDialog extends DialogFragment {
 
   public static final String SELECTED = "position";
 
-  public interface OnTargetBudgetSet {
-    void onTargetBudgetSet(@NonNull Budget budget);
+  public interface OnFromBudgetSet {
+    void onFromBudgetSet(@NonNull Budget budget);
   }
 
-  private OnTargetBudgetSet mListener;
+  private OnFromBudgetSet mListener;
 
-  public static TargetBudgetPickerDialog newInstance(ArrayList<Budget> budgets, int position) {
-    TargetBudgetPickerDialog dialog = new TargetBudgetPickerDialog();
+  public static FromBudgetPickerDialog newInstance(ArrayList<Budget> budgets, int position) {
+    FromBudgetPickerDialog dialog = new FromBudgetPickerDialog();
     Bundle args = new Bundle();
     args.putParcelableArrayList(Budget.BUDGETS, budgets);
     args.putInt(SELECTED, position);
@@ -39,10 +39,10 @@ public final class TargetBudgetPickerDialog extends DialogFragment {
 
   @Override public void onAttach(Activity activity) {
     super.onAttach(activity);
-    if (!(activity instanceof OnTargetBudgetSet)) {
-      throw new IllegalStateException("Activity must implement OnTargetBudgetSet. Found: " + activity);
+    if (!(activity instanceof OnFromBudgetSet)) {
+      throw new IllegalStateException("Activity must implement OnFromBudgetSet. Found: " + activity);
     } else {
-      mListener = (OnTargetBudgetSet) activity;
+      mListener = (OnFromBudgetSet) activity;
     }
   }
 
@@ -63,7 +63,7 @@ public final class TargetBudgetPickerDialog extends DialogFragment {
           final int selectedCategory =
               ((AlertDialog) dialog).getListView().getCheckedItemPosition();
           if (mListener != null && selectedCategory < budgets.size() && selectedCategory >= 0) {
-            mListener.onTargetBudgetSet(budgets.get(selectedCategory));
+            mListener.onFromBudgetSet(budgets.get(selectedCategory));
           }
         })
         .setNegativeButton(R.string.cancel, null)

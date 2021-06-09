@@ -22,8 +22,8 @@ public class Transaction implements Parcelable, TransactionItem {
   public static final String ID_CATEGORY = "t_category";
   public static final String DESCRIPTION = "t_description";
   public static final String ID_BUDGET = "t_budget";
-  public static final String ID_TARGET_BUDGET = "t_target_budget";
-  public static final String ID_TARGET_BUDGET_TRANSACTION = "t_target_budget_transaction";
+  public static final String ID_FROM_BUDGET = "t_from_budget";
+  public static final String ID_FROM_BUDGET_TRANSACTION = "t_from_budget_transaction";
 
   private long id;
   private int day;
@@ -35,8 +35,8 @@ public class Transaction implements Parcelable, TransactionItem {
   private int icon;
   private String description;
   private long idBudget;
-  private long idTargetBudget;
-  private long idTargetBudgetTransaction;
+  private long idFromBudget;
+  private long idFromBudgetTransaction;
 
   public Transaction() {
     this(-1, DateUtil.getCurrentDay(), DateUtil.getCurrentMonth(), DateUtil.getCurrentYear(), 0, -1, null, -1, -1, -1);
@@ -53,19 +53,19 @@ public class Transaction implements Parcelable, TransactionItem {
     this.color = in.readInt();
     this.icon = in.readInt();
     this.idBudget = in.readLong();
-    this.idTargetBudget = in.readLong();
-    this.idTargetBudgetTransaction = in.readLong();
+    this.idFromBudget = in.readLong();
+    this.idFromBudgetTransaction = in.readLong();
   }
 
-  public Transaction(int day, int month, int year, double value, int idCategory, String description, long idBudget, long idTargetBudget, long idTargetBudgetTransaction) {
-    this(-1, day, month, year, value, idCategory, description, idBudget, idTargetBudget, idTargetBudgetTransaction);
+  public Transaction(int day, int month, int year, double value, int idCategory, String description, long idBudget, long idFromBudget, long idFromBudgetTransaction) {
+    this(-1, day, month, year, value, idCategory, description, idBudget, idFromBudget, idFromBudgetTransaction);
   }
 
-  public Transaction(long id, int day, int month, int year, double value, long idCategory, String description, long idBudget, long idTargetBudget, long idTargetBudgetTransaction) {
-    this(id, day, month, year, value, idCategory, description, -1, -1, idBudget, idTargetBudget, idTargetBudgetTransaction);
+  public Transaction(long id, int day, int month, int year, double value, long idCategory, String description, long idBudget, long idFromBudget, long idFromBudgetTransaction) {
+    this(id, day, month, year, value, idCategory, description, -1, -1, idBudget, idFromBudget, idFromBudgetTransaction);
   }
 
-  public Transaction(long id, int day, int month, int year, double value, long idCategory, String description, @ColorInt int color, @DimenRes int icon, long idBudget, long idTargetBudget, long idTargetBudgetTransaction) {
+  public Transaction(long id, int day, int month, int year, double value, long idCategory, String description, @ColorInt int color, @DimenRes int icon, long idBudget, long idFromBudget, long idFromBudgetTransaction) {
     this.id = id;
     this.day = day;
     this.month = month;
@@ -76,20 +76,20 @@ public class Transaction implements Parcelable, TransactionItem {
     this.color = color;
     this.icon = icon;
     this.idBudget = idBudget;
-    this.idTargetBudget = idTargetBudget;
-    this.idTargetBudgetTransaction = idTargetBudgetTransaction;
+    this.idFromBudget = idFromBudget;
+    this.idFromBudgetTransaction = idFromBudgetTransaction;
   }
 
-  public Transaction(long targetTransactionId, Transaction targetTransaction) {
-    this.day = targetTransaction.day;
-    this.month = targetTransaction.month;
-    this.year = targetTransaction.year;
-    this.value = -targetTransaction.value;
-    this.idCategory = targetTransaction.idCategory;
-    this.description = targetTransaction.description;
-    this.idBudget = targetTransaction.idTargetBudget;
-    this.idTargetBudget = targetTransaction.idBudget;
-    this.idTargetBudgetTransaction = targetTransactionId;
+  public Transaction(long fromTransactionId, Transaction fromTransaction) {
+    this.day = fromTransaction.day;
+    this.month = fromTransaction.month;
+    this.year = fromTransaction.year;
+    this.value = -fromTransaction.value;
+    this.idCategory = fromTransaction.idCategory;
+    this.description = fromTransaction.description;
+    this.idBudget = fromTransaction.idFromBudget;
+    this.idFromBudget = fromTransaction.idBudget;
+    this.idFromBudgetTransaction = fromTransactionId;
   }
 
   public long getId() {
@@ -160,20 +160,20 @@ public class Transaction implements Parcelable, TransactionItem {
     return idBudget;
   }
 
-  public void setIdTargetBudget(long idBudget) {
-    this.idTargetBudget = idBudget;
+  public void setIdFromBudget(long idBudget) {
+    this.idFromBudget = idBudget;
   }
 
-  public long getIdTargetBudget() {
-    return idTargetBudget;
+  public long getIdFromBudget() {
+    return idFromBudget;
   }
 
-  public void setIdTargetBudgetTransaction(long idTargetBudgetTransaction) {
-    this.idTargetBudgetTransaction = idTargetBudgetTransaction;
+  public void setIdFromBudgetTransaction(long idFromBudgetTransaction) {
+    this.idFromBudgetTransaction = idFromBudgetTransaction;
   }
 
-  public long getIdTargetBudgetTransaction() {
-    return idTargetBudgetTransaction;
+  public long getIdFromBudgetTransaction() {
+    return idFromBudgetTransaction;
   }
 
   public void setIdBudget(long idBudget) {
@@ -199,8 +199,8 @@ public class Transaction implements Parcelable, TransactionItem {
     dest.writeInt(color);
     dest.writeInt(icon);
     dest.writeLong(idBudget);
-    dest.writeLong(idTargetBudget);
-    dest.writeLong(idTargetBudgetTransaction);
+    dest.writeLong(idFromBudget);
+    dest.writeLong(idFromBudgetTransaction);
   }
 
   public static final Parcelable.Creator<Transaction> CREATOR = new Parcelable.Creator<Transaction>() {
