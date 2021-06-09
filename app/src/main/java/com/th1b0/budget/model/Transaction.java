@@ -180,8 +180,16 @@ public class Transaction implements Parcelable, TransactionItem {
     this.idBudget = idBudget;
   }
 
+  public boolean isDescriptionDefined() {
+    return description != "";
+  }
+
   public boolean isBudgetIdDefined() {
     return idBudget != Budget.NOT_DEFINED;
+  }
+
+  public boolean isFromBudgetIdDefined() {
+    return idFromBudget != Budget.NOT_DEFINED;
   }
 
   @Override public int describeContents() {

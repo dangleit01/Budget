@@ -31,7 +31,7 @@ to
 Install Android SDK Platform 27
 
 # Debug
-Click force close, and open app again.
+Click debug many until ok.
 
 ## Technical
 # Currency input

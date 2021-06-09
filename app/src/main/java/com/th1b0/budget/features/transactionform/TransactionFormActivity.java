@@ -114,6 +114,7 @@ public final class TransactionFormActivity extends AppCompatActivity
     mCategories = savedInstanceState.getParcelableArrayList(Category.CATEGORIES);
     mBudgets = savedInstanceState.getParcelableArrayList(Budget.BUDGETS);
     updateCategory();
+    updateDescription();
     updateBudget();
     updateFromBudget();
   }
@@ -164,10 +165,19 @@ public final class TransactionFormActivity extends AppCompatActivity
     }
   }
 
+  private void updateDescription() {
+    mView.description.setText(mTransaction.getDescription());
+  }
+
   private void updateBudget() {
     int position = findBudgetPosition(mTransaction.getIdBudget());
     if (position > -1) {
       mView.budget.setText(mBudgets.get(position).getTitle());
+    } else {
+      if(!mBudgets.isEmpty()) {
+        mTransaction.setIdBudget(mBudgets.get(0).getId());
+        mView.budget.setText(mBudgets.get(0).getTitle());
+      }
     }
   }
 
@@ -315,8 +325,13 @@ public final class TransactionFormActivity extends AppCompatActivity
   @Override public void onCategorySet(@NonNull Category category) {
     mTransaction.setIdCategory(category.getId());
     mTransaction.setIdBudget(category.getIdBudget());
+    mTransaction.setIdFromBudget(category.getIdFromBudget());
+    mTransaction.setDescription(category.getDescription());
+
     updateCategory();
+    updateDescription();
     updateBudget();
+    updateFromBudget();
   }
 
   @Override public void onBudgetSet(@NonNull Budget budget) {
@@ -341,6 +356,12 @@ public final class TransactionFormActivity extends AppCompatActivity
       category = mCategories.get(positionCategory);
     }
 
+    if (!mTransaction.isDescriptionDefined()) {
+      if (category.isDescriptionDefined()) {
+        mTransaction.setDescription(category.getDescription());
+      }
+    }
+
     if (!mTransaction.isBudgetIdDefined()) {
       if (category.isBudgetIdDefined()) {
         mTransaction.setIdBudget(category.getIdBudget());
@@ -349,13 +370,22 @@ public final class TransactionFormActivity extends AppCompatActivity
       }
     }
 
+    if (!mTransaction.isFromBudgetIdDefined()) {
+      if (category.isFromBudgetIdDefined()) {
+        mTransaction.setIdFromBudget(category.getIdFromBudget());
+      } else {
+        mTransaction.setIdFromBudget(mBudgets.get(0).getId());
+      }
+    }
+
     updateCategory();
+    updateDescription();
     updateBudget();
+    updateFromBudget();
   }
 
   @Override public void onBudgetsLoaded(@NonNull ArrayList<Budget> budgets) {
     mBudgets = budgets;
-    updateFromBudget();
   }
 
   @Override public void onError(@Nullable final String error) {

@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 abstract class Database extends SQLiteOpenHelper {
 
-  private static final int DATABASE_VERSION = 102;
+  private static final int DATABASE_VERSION = 103;
   private static final String DATABASE_NAME = "budget";
   static final String TABLE_TRANSACTION = "transaction_table";
   static final String TABLE_CATEGORY = "category_table";
@@ -65,11 +65,15 @@ abstract class Database extends SQLiteOpenHelper {
         + " INTEGER PRIMARY KEY, "
         + Category.TITLE
         + " TEXT, "
+        + Category.DESCRIPTION
+        + " TEXT, "
         + Category.COLOR
         + " INTEGER, "
         + Category.ICON
         + " INTEGER, "
         + Category.ID_BUDGET
+        + " INTEGER, "
+        + Category.ID_FROM_BUDGET
         + " INTEGER )";
 
     String CREATE_BUDGET_TABLE = "CREATE TABLE "
@@ -101,9 +105,11 @@ abstract class Database extends SQLiteOpenHelper {
   ContentValues getContentValues(@NonNull Category category) {
     ContentValues values = new ContentValues();
     values.put(Category.TITLE, category.getTitle());
+    values.put(Category.DESCRIPTION, category.getDescription());
     values.put(Category.COLOR, category.getColor());
     values.put(Category.ICON, category.getIcon());
     values.put(Category.ID_BUDGET, category.getIdBudget());
+    values.put(Category.ID_FROM_BUDGET, category.getIdFromBudget());
 
     return values;
   }

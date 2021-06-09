@@ -110,7 +110,9 @@ public final class DataManager {
         .filter(rows -> rows > 0)
         .map(ignored -> budget.getId())
         .doOnSuccess(mCategoryTable::removeIdBudget)
-        .doOnSuccess(mTransactionTable::removeIdBudget);
+        .doOnSuccess(mCategoryTable::removeIdFromBudget)
+        .doOnSuccess(mTransactionTable::removeIdBudget)
+        .doOnSuccess(mTransactionTable::removeIdFromBudget);
   }
 
   public void initializeDatabase(ArrayList<Budget> budgets, ArrayList<Category> categories) {

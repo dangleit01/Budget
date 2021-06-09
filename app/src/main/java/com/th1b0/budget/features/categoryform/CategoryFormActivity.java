@@ -22,6 +22,8 @@ import com.th1b0.budget.model.Budget;
 import com.th1b0.budget.model.Category;
 import com.th1b0.budget.util.BudgetPickerDialog;
 import com.th1b0.budget.util.DataManager;
+import com.th1b0.budget.util.FromBudgetPickerDialog;
+
 import java.util.ArrayList;
 
 /**
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 
 public final class CategoryFormActivity extends AppCompatActivity
     implements ColorPickerDialog.OnColorSet, IconPickerDialog.OnIconSet, CategoryFormView,
-    BudgetPickerDialog.OnBudgetSet {
+    BudgetPickerDialog.OnBudgetSet, FromBudgetPickerDialog.OnFromBudgetSet {
 
   private Category mCategory;
   private CategoryFormPresenter mPresenter;
@@ -103,6 +105,7 @@ public final class CategoryFormActivity extends AppCompatActivity
     super.onRestoreInstanceState(savedInstanceState);
     mBudgets = savedInstanceState.getParcelableArrayList(Budget.BUDGETS);
     updateBudget();
+    updateFromBudget();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -136,6 +139,7 @@ public final class CategoryFormActivity extends AppCompatActivity
 
   private void fillForm() {
     mView.title.setText(mCategory.getTitle());
+    mView.description.setText(mCategory.getDescription());
     updateColor();
     updateIcon();
   }
@@ -157,6 +161,15 @@ public final class CategoryFormActivity extends AppCompatActivity
     }
   }
 
+  private void updateFromBudget() {
+    if (mBudgets == null) return;
+
+    int position = findBudgetPosition(mCategory.getIdFromBudget());
+    if (position > -1) {
+      mView.fromBudget.setText(mBudgets.get(position).getTitle());
+    }
+  }
+
   private boolean isFormValid() {
     boolean isValid = true;
     if (mView.title.getText().length() == 0) {
@@ -167,11 +180,20 @@ public final class CategoryFormActivity extends AppCompatActivity
       mView.titleInputLayout.setErrorEnabled(false);
     }
 
+    if (mView.description.getText().length() == 0) {
+      mView.descriptionInputLayout.setErrorEnabled(true);
+      mView.descriptionInputLayout.setError(getString(R.string.no_empty_field));
+      isValid = false;
+    } else {
+      mView.descriptionInputLayout.setErrorEnabled(false);
+    }
+
     return isValid;
   }
 
   private void updateCategoryFromForm() {
     mCategory.setTitle(mView.title.getText().toString());
+    mCategory.setDescription(mView.description.getText().toString());
   }
 
   private void setupListener() {
@@ -190,6 +212,12 @@ public final class CategoryFormActivity extends AppCompatActivity
       int position = findBudgetPosition(mCategory.getIdBudget());
       BudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
+
+    mView.containerLayoutFromBudget.setOnClickListener(v -> {
+      hideKeyboard();
+      int position = findBudgetPosition(mCategory.getIdFromBudget());
+      FromBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
+    });
   }
 
   @Override public void onIconSet(@DrawableRes int icon) {
@@ -207,7 +235,11 @@ public final class CategoryFormActivity extends AppCompatActivity
     if (mCategory.getIdBudget() == -1 && !budgets.isEmpty()) {
       mCategory.setIdBudget(budgets.get(0).getId());
     }
+    if (mCategory.getIdFromBudget() == -1 && !budgets.isEmpty()) {
+      mCategory.setIdFromBudget(budgets.get(0).getId());
+    }
     updateBudget();
+    updateFromBudget();
   }
 
   @Override public void onError(@Nullable final String error) {
@@ -243,6 +275,11 @@ public final class CategoryFormActivity extends AppCompatActivity
   @Override public void onBudgetSet(@NonNull Budget budget) {
     mCategory.setIdBudget(budget.getId());
     updateBudget();
+  }
+
+  @Override public void onFromBudgetSet(@NonNull Budget budget) {
+    mCategory.setIdFromBudget(budget.getId());
+    updateFromBudget();
   }
 
   private void hideKeyboard() {

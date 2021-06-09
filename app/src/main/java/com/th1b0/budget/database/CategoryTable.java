@@ -26,21 +26,33 @@ public final class CategoryTable extends Database {
         + ", "
         + Category.TITLE
         + ", "
+        + Category.DESCRIPTION
+        + ", "
         + Category.COLOR
         + ","
         + Category.ICON
         + ", "
         + Category.ID_BUDGET
         + ", "
-        + Budget.TITLE
+        + "BUDGET." + Budget.TITLE + " AS " + Budget.TITLE
+        + ", "
+        + Category.ID_FROM_BUDGET
+        + ", "
+        + "FROM_BUDGET." + Budget.TITLE + " AS " + Budget.TITLE + "_from_budget"
         + " FROM "
         + TABLE_CATEGORY
         + " LEFT JOIN "
-        + TABLE_BUDGET
+        + TABLE_BUDGET + " AS BUDGET "
         + " ON "
         + Category.ID_BUDGET
         + " = "
-        + Budget.ID
+        + "BUDGET." + Budget.ID
+        + " LEFT JOIN "
+        + TABLE_BUDGET + " AS FROM_BUDGET "
+        + " ON "
+        + Category.ID_FROM_BUDGET
+        + " = "
+        + "FROM_BUDGET." + Budget.ID
         + " ORDER BY "
         + Category.TITLE).map(super::getCursor).map(cursor -> {
       try {
@@ -75,11 +87,20 @@ public final class CategoryTable extends Database {
         String.valueOf(idBudget));
   }
 
+  public int removeIdFromBudget(long idBudget) {
+    ContentValues values = new ContentValues();
+    values.put(Category.ID_FROM_BUDGET, Budget.NOT_DEFINED);
+    return db.update(TABLE_CATEGORY, values, Category.ID_FROM_BUDGET + " = ?",
+            String.valueOf(idBudget));
+  }
+
   private Category getCategory(@NonNull Cursor cursor) {
     Category category =  new Category(DbUtil.getLong(cursor, Category.ID),
-        DbUtil.getLong(cursor, Category.ID_BUDGET), DbUtil.getString(cursor, Category.TITLE),
+        DbUtil.getLong(cursor, Category.ID_BUDGET), DbUtil.getLong(cursor, Category.ID_FROM_BUDGET),
+        DbUtil.getString(cursor, Category.TITLE), DbUtil.getString(cursor, Category.DESCRIPTION),
         DbUtil.getInt(cursor, Category.COLOR), DbUtil.getInt(cursor, Category.ICON));
     category.setTitleBudget(DbUtil.getString(cursor, Budget.TITLE));
+    category.setTitleFromBudget(DbUtil.getString(cursor, Budget.TITLE + "_from_budget"));
     return category;
   }
 

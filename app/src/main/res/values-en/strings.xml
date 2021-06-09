@@ -34,6 +34,7 @@
     <string name="budget_label">Budget: %1$s</string>
     <string name="no_default_budget">No budget defined</string>
     <string name="default_budget">Default budget</string>
+    <string name="default_from_budget">Default from budget</string>
     <string name="none">None</string>
     <string name="home">Home</string>
     <string name="transactions">Transactions</string>

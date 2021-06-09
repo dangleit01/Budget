@@ -163,15 +163,15 @@ public final class MainActivity extends AppCompatActivity
 
     ArrayList<Category> categories = new ArrayList<>(5);
     categories.add(
-        new Category(getString(R.string.food), ContextCompat.getColor(this, R.color.category_food),
+        new Category(getString(R.string.food), getString(R.string.food), ContextCompat.getColor(this, R.color.category_food),
             R.mipmap.ic_food));
-    categories.add(new Category(getString(R.string.diner),
+    categories.add(new Category(getString(R.string.diner), getString(R.string.diner),
         ContextCompat.getColor(this, R.color.category_diner), R.mipmap.ic_diner));
-    categories.add(new Category(getString(R.string.hobby),
+    categories.add(new Category(getString(R.string.hobby), getString(R.string.hobby),
         ContextCompat.getColor(this, R.color.category_hobby), R.mipmap.ic_hobby));
-    categories.add(new Category(getString(R.string.shopping),
+    categories.add(new Category(getString(R.string.shopping), getString(R.string.shopping),
         ContextCompat.getColor(this, R.color.category_shopping), R.mipmap.ic_shopping));
-    categories.add(new Category(getString(R.string.transport),
+    categories.add(new Category(getString(R.string.transport), getString(R.string.transport),
         ContextCompat.getColor(this, R.color.category_transport), R.mipmap.ic_transport));
 
     DataManager.getInstance(this).initializeDatabase(budgets, categories);

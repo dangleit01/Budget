@@ -255,6 +255,13 @@ public final class TransactionTable extends Database {
         String.valueOf(idBudget));
   }
 
+  public int removeIdFromBudget(long idBudget) {
+    ContentValues values = new ContentValues();
+    values.put(Transaction.ID_FROM_BUDGET, Budget.NOT_DEFINED);
+    return db.update(TABLE_TRANSACTION, values, Transaction.ID_FROM_BUDGET + " = ?",
+            String.valueOf(idBudget));
+  }
+
   public int update(Transaction transaction) {
     int iResult = 0;
     BriteDatabase.Transaction databaseTransaction = db.newTransaction();
