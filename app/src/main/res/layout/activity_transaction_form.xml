@@ -206,6 +206,14 @@
                             style="@style/TextSubheadOneLine"
                             />
 
+                        <TextView
+                            android:id="@+id/target_budget_error"
+                            android:layout_below="@+id/target_budget"
+                            style="@style/TextError"
+                            android:layout_marginStart="32dp"
+                            android:visibility="gone"
+                            />
+
                     </RelativeLayout>
 
                     <!-- Date -->

@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import com.th1b0.budget.R;
@@ -238,6 +239,14 @@ public final class TransactionFormActivity extends AppCompatActivity
       isValid = false;
     } else {
       mView.valueInputLayout.setErrorEnabled(false);
+    }
+
+    if (mTransaction.getIdBudget() == mTransaction.getIdTargetBudget()) {
+      mView.targetBudgetError.setVisibility(View.VISIBLE);
+      mView.targetBudgetError.setText(getString(R.string.no_same_budget));
+      isValid = false;
+    } else {
+      mView.targetBudgetError.setVisibility(View.INVISIBLE);
     }
 
     return isValid;

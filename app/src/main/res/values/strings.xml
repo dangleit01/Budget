@@ -54,6 +54,7 @@
     <string name="set_budget">Set budget</string>
     <string name="set_icon">Set icon</string>
     <string name="no_empty_field">No empty field</string>
+    <string name="no_same_budget">Budget and target budget must be different</string>
 
     <!-- Categories -->
     <string name="food">Food</string>
