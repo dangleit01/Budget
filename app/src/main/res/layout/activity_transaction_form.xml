@@ -30,6 +30,44 @@
                     android:orientation="vertical"
                     >
 
+                    <!-- Category -->
+                    <RelativeLayout
+                        android:id="@+id/category_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        >
+
+                        <ImageView
+                            android:id="@+id/category_icon"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/spacing_medium"
+                            android:src="@mipmap/ic_category"
+                            android:layout_centerVertical="true"
+                            style="@style/IconShort"
+                            />
+
+                        <TextView
+                            android:id="@+id/icon_title"
+                            android:layout_toEndOf="@+id/category_icon"
+                            style="@style/TextBody"
+                            android:layout_marginStart="32dp"
+                            android:text="@string/category"
+                            />
+
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/icon_title"
+                            android:layout_marginEnd="@dimen/spacing_medium"
+                            android:layout_marginStart="@dimen/spacing_huge"
+                            android:text="@string/loading"
+                            style="@style/TextSubheadOneLine"
+                            />
+
+                    </RelativeLayout>
 
                     <!-- Description -->
                     <android.support.design.widget.TextInputLayout
@@ -98,45 +136,6 @@
                         </android.support.design.widget.TextInputLayout>
 
                     </FrameLayout>
-
-                    <!-- Category -->
-                    <RelativeLayout
-                        android:id="@+id/category_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/spacing_medium"
-                        android:paddingBottom="@dimen/spacing_medium"
-                        >
-
-                        <ImageView
-                            android:id="@+id/category_icon"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/spacing_medium"
-                            android:src="@mipmap/ic_category"
-                            android:layout_centerVertical="true"
-                            style="@style/IconShort"
-                            />
-
-                        <TextView
-                            android:id="@+id/icon_title"
-                            android:layout_toEndOf="@+id/category_icon"
-                            style="@style/TextBody"
-                            android:layout_marginStart="32dp"
-                            android:text="@string/category"
-                            />
-
-                        <TextView
-                            android:id="@+id/category"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/icon_title"
-                            android:layout_marginEnd="@dimen/spacing_medium"
-                            android:layout_marginStart="@dimen/spacing_huge"
-                            android:text="@string/loading"
-                            style="@style/TextSubheadOneLine"
-                            />
-
-                    </RelativeLayout>
 
                     <!-- Budget -->
                     <RelativeLayout
