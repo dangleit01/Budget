@@ -87,6 +87,14 @@
                                 android:inputType="numberDecimal|numberSigned"
                                 />
 
+                            <TextView
+                                android:id="@+id/thousand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/value"
+                                android:layout_marginStart="@dimen/spacing_huge"
+                                android:text="@string/thousand" />
+
                         </android.support.design.widget.TextInputLayout>
 
                     </FrameLayout>
@@ -210,7 +218,7 @@
                             android:id="@+id/target_budget_error"
                             android:layout_below="@+id/target_budget"
                             style="@style/TextError"
-                            android:layout_marginStart="32dp"
+                            android:layout_marginStart="72dp"
                             android:visibility="gone"
                             />
 

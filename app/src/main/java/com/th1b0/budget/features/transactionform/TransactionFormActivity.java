@@ -205,6 +205,10 @@ public final class TransactionFormActivity extends AppCompatActivity
       int position = findBudgetPosition(mTransaction.getIdTargetBudget());
       TargetBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
+
+    mView.thousand.setOnClickListener(v -> {
+      mView.value.setText(mView.value.getText() + "000");
+    });
   }
 
   private void updateTransactionFromForm() {
