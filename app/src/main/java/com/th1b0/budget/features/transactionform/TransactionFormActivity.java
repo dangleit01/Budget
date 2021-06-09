@@ -201,7 +201,8 @@ public final class TransactionFormActivity extends AppCompatActivity
 
     mView.containerLayoutTarget.setOnClickListener(v -> {
       hideKeyboard();
-      TargetBudgetPickerDialog.newInstance(mBudgets, 0).show(getFragmentManager(), null);
+      int position = findBudgetPosition(mTransaction.getIdTargetBudget());
+      TargetBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
   }
 
