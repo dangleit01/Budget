@@ -66,8 +66,9 @@ public final class SimpleItemAdapter<T extends SimpleItem>
 
     holder.title.setText(simpleItem.getTitle());
 
-    NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
-    holder.value.setText(formatter.format(simpleItem.getValue()));
+    holder.value.setText(CurrencyUtil.formatToUSD(simpleItem.getValue()));
+    /*NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
+    holder.value.setText(formatter.format(simpleItem.getValue()));*/
     //holder.value.setText(context.getString(R.string.float_value, simpleItem.getValue()));
 
     if (showColor) {

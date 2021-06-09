@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.th1b0.budget.R;
 import com.th1b0.budget.model.PresentationBudget;
+import com.th1b0.budget.util.CurrencyUtil;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -55,15 +56,17 @@ final class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewBudget>
     final PresentationBudget budget = mItems.get(position);
     final double res = budget.getValue() + budget.getOut();
 
-    NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
-    String formattedDetail = formatter.format(budget.getValue()) + " of " + formatter.format(budget.getOut());
-    holder.detail.setText(formattedDetail);
+    holder.detail.setText(CurrencyUtil.formatToUSD(budget.getValue()) + " of " + CurrencyUtil.formatToUSD(budget.getOut()));
+    //NumberFormat formatter = new DecimalFormat(context.getString(R.string.decimal_format));
+    //String formattedDetail = formatter.format(budget.getValue()) + " of " + formatter.format(budget.getOut());
+    //holder.detail.setText(formattedDetail);
     /*holder.detail.setText(
         context.getString(R.string.budget_of_goal, negation(budget.getOut()), budget.getValue()));*/
     holder.title.setText(budget.getTitle());
 
-    String formattedValue = formatter.format(res);
-    holder.value.setText(formattedValue);
+    holder.value.setText(CurrencyUtil.formatToUSD(res));
+    //String formattedValue = formatter.format(res);
+    //holder.value.setText(formattedValue);
     //holder.value.setText(context.getString(R.string.float_value, res));
     if (res >= 0) {
       holder.value.setTextColor(ContextCompat.getColor(context, R.color.green));

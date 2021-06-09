@@ -18,6 +18,7 @@ import com.th1b0.budget.databinding.FragmentPagerBinding;
 import com.th1b0.budget.features.transaction.TransactionFragment;
 import com.th1b0.budget.model.PresentationBalance;
 import com.th1b0.budget.model.PresentationBudget;
+import com.th1b0.budget.util.CurrencyUtil;
 import com.th1b0.budget.util.DataManager;
 import com.th1b0.budget.util.DateUtil;
 
@@ -111,12 +112,15 @@ public final class BudgetMonthFragment extends Fragment
   }
 
   @Override public void onBalanceLoaded(@NonNull PresentationBalance balance) {
-    NumberFormat formatter = new DecimalFormat(getString(R.string.decimal_format));
-    mView.balance.setText(formatter.format(balance.getBalance()));
+    mView.balance.setText(CurrencyUtil.formatToUSD(balance.getBalance()));
+    //NumberFormat formatter = new DecimalFormat(getString(R.string.decimal_format));
+    //mView.balance.setText(formatter.format(balance.getBalance()));
     //mView.balance.setText(getString(R.string.float_value, balance.getBalance()));
-    mView.incomes.setText(formatter.format(balance.getIncomes()));
+    mView.incomes.setText(CurrencyUtil.formatToUSD(balance.getIncomes()));
+    //mView.incomes.setText(formatter.format(balance.getIncomes()));
     //mView.incomes.setText(getString(R.string.float_value, balance.getIncomes()));
-    mView.expenses.setText(formatter.format(balance.getExpenses()));
+    mView.expenses.setText(CurrencyUtil.formatToUSD(balance.getExpenses()));
+    //mView.expenses.setText(formatter.format(balance.getExpenses()));
     //mView.expenses.setText(getString(R.string.float_value, balance.getExpenses()));
   }
 
