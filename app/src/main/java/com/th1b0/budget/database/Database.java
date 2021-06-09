@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 abstract class Database extends SQLiteOpenHelper {
 
-  private static final int DATABASE_VERSION = 11;
+  private static final int DATABASE_VERSION = 101;
   private static final String DATABASE_NAME = "budget";
   static final String TABLE_TRANSACTION = "transaction_table";
   static final String TABLE_CATEGORY = "category_table";

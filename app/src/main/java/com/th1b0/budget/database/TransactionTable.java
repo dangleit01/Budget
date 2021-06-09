@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+
+import com.squareup.sqlbrite2.BriteDatabase;
 import com.th1b0.budget.model.Budget;
 import com.th1b0.budget.model.Category;
 import com.th1b0.budget.model.Transaction;
@@ -37,6 +39,10 @@ public final class TransactionTable extends Database {
         + Transaction.DESCRIPTION
         + ", "
         + Transaction.ID_BUDGET
+        + ", "
+        + Transaction.ID_TARGET_BUDGET
+        + ", "
+        + Transaction.ID_TARGET_BUDGET_TRANSACTION
         + ", "
         + Category.COLOR
         + ", "
@@ -88,6 +94,10 @@ public final class TransactionTable extends Database {
         + Transaction.DESCRIPTION
         + ", "
         + Transaction.ID_BUDGET
+        + ", "
+        + Transaction.ID_TARGET_BUDGET
+        + ", "
+        + Transaction.ID_TARGET_BUDGET_TRANSACTION
         + ", "
         + Category.COLOR
         + ", "
@@ -146,7 +156,11 @@ public final class TransactionTable extends Database {
         + ", "
         + Transaction.ID_BUDGET
         + ", "
-        + Category.COLOR
+        + Transaction.ID_TARGET_BUDGET
+        + ", "
+        + Transaction.ID_TARGET_BUDGET_TRANSACTION
+        + ", "
+            + Category.COLOR
         + ", "
         + Category.ICON
         + " FROM "
@@ -188,12 +202,45 @@ public final class TransactionTable extends Database {
   }
 
   public long add(Transaction transaction) {
-    return db.insert(TABLE_TRANSACTION, getContentValues(transaction));
+    long transactionId = 0;
+    BriteDatabase.Transaction databaseTransaction = db.newTransaction();
+    try {
+      // insert transaction
+      transactionId = db.insert(TABLE_TRANSACTION, getContentValues(transaction));
+
+      //insert target transaction
+      Transaction targetTransaction = new Transaction(transactionId, transaction);
+      long targetBudgetTransactionId = db.insert(TABLE_TRANSACTION, getContentValues(targetTransaction));
+
+      // update targetBudgetTransactionId for transaction
+      transaction.setIdTargetBudgetTransaction(targetBudgetTransactionId);
+      db.update(TABLE_TRANSACTION, getContentValues(transaction), Transaction.ID + " = ?",
+              String.valueOf(transactionId));
+
+      databaseTransaction.markSuccessful();
+    } finally {
+      databaseTransaction.end();
+    }
+    return transactionId;
   }
 
   public int delete(Transaction transaction) {
-    return db.delete(TABLE_TRANSACTION, Transaction.ID + " = ?",
-        String.valueOf(transaction.getId()));
+    int iResult = 0;
+    BriteDatabase.Transaction databaseTransaction = db.newTransaction();
+    try {
+      // delete transaction
+      iResult = db.delete(TABLE_TRANSACTION, Transaction.ID + " = ?",
+              String.valueOf(transaction.getId()));
+
+      //delete target budget transaction
+      db.delete(TABLE_TRANSACTION, Transaction.ID + " = ?",
+              String.valueOf(transaction.getIdTargetBudgetTransaction()));
+
+      databaseTransaction.markSuccessful();
+    } finally {
+      databaseTransaction.end();
+    }
+    return iResult;
   }
 
   public int delete(Category category) {
@@ -209,8 +256,23 @@ public final class TransactionTable extends Database {
   }
 
   public int update(Transaction transaction) {
-    return db.update(TABLE_TRANSACTION, getContentValues(transaction), Transaction.ID + " = ?",
-        String.valueOf(transaction.getId()));
+    int iResult = 0;
+    BriteDatabase.Transaction databaseTransaction = db.newTransaction();
+    try {
+      // update transaction
+      iResult = db.update(TABLE_TRANSACTION, getContentValues(transaction), Transaction.ID + " = ?",
+              String.valueOf(transaction.getId()));
+
+      // update targetBudgetTransaction (not allow change targetBudget)
+      Transaction targetTransaction = new Transaction(transaction.getId(), transaction);
+      db.update(TABLE_TRANSACTION, getContentValues(targetTransaction), Transaction.ID + " = ?",
+              String.valueOf(transaction.getIdTargetBudgetTransaction()));
+
+      databaseTransaction.markSuccessful();
+    } finally {
+      databaseTransaction.end();
+    }
+    return iResult;
   }
 
   private ContentValues getContentValues(Transaction transaction) {
@@ -222,6 +284,8 @@ public final class TransactionTable extends Database {
     values.put(Transaction.ID_CATEGORY, transaction.getIdCategory());
     values.put(Transaction.DESCRIPTION, transaction.getDescription());
     values.put(Transaction.ID_BUDGET, transaction.getIdBudget());
+    values.put(Transaction.ID_TARGET_BUDGET, transaction.getIdTargetBudget());
+    values.put(Transaction.ID_TARGET_BUDGET_TRANSACTION, transaction.getIdTargetBudgetTransaction());
 
     return values;
   }
@@ -232,7 +296,8 @@ public final class TransactionTable extends Database {
         DbUtil.getInt(cursor, Transaction.YEAR), DbUtil.getDouble(cursor, Transaction.VALUE),
         DbUtil.getInt(cursor, Transaction.ID_CATEGORY),
         DbUtil.getString(cursor, Transaction.DESCRIPTION), DbUtil.getInt(cursor, Category.COLOR),
-        DbUtil.getInt(cursor, Category.ICON), DbUtil.getLong(cursor, Transaction.ID_BUDGET));
+        DbUtil.getInt(cursor, Category.ICON), DbUtil.getLong(cursor, Transaction.ID_BUDGET),
+        DbUtil.getLong(cursor, Transaction.ID_TARGET_BUDGET),DbUtil.getLong(cursor, Transaction.ID_TARGET_BUDGET_TRANSACTION));
   }
 
   public Observable<Boolean> isEmpty() {

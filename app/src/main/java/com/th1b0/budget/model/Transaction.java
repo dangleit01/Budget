@@ -80,6 +80,18 @@ public class Transaction implements Parcelable, TransactionItem {
     this.idTargetBudgetTransaction = idTargetBudgetTransaction;
   }
 
+  public Transaction(long targetTransactionId, Transaction targetTransaction) {
+    this.day = targetTransaction.day;
+    this.month = targetTransaction.month;
+    this.year = targetTransaction.year;
+    this.value = -targetTransaction.value;
+    this.idCategory = targetTransaction.idCategory;
+    this.description = targetTransaction.description;
+    this.idBudget = targetTransaction.idTargetBudget;
+    this.idTargetBudget = targetTransaction.idBudget;
+    this.idTargetBudgetTransaction = targetTransactionId;
+  }
+
   public long getId() {
     return id;
   }
@@ -156,6 +168,14 @@ public class Transaction implements Parcelable, TransactionItem {
     return idTargetBudget;
   }
 
+  public void setIdTargetBudgetTransaction(long idTargetBudgetTransaction) {
+    this.idTargetBudgetTransaction = idTargetBudgetTransaction;
+  }
+
+  public long getIdTargetBudgetTransaction() {
+    return idTargetBudgetTransaction;
+  }
+
   public void setIdBudget(long idBudget) {
     this.idBudget = idBudget;
   }
@@ -179,6 +199,8 @@ public class Transaction implements Parcelable, TransactionItem {
     dest.writeInt(color);
     dest.writeInt(icon);
     dest.writeLong(idBudget);
+    dest.writeLong(idTargetBudget);
+    dest.writeLong(idTargetBudgetTransaction);
   }
 
   public static final Parcelable.Creator<Transaction> CREATOR = new Parcelable.Creator<Transaction>() {

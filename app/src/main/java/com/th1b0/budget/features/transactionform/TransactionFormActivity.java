@@ -111,6 +111,7 @@ public final class TransactionFormActivity extends AppCompatActivity
     mBudgets = savedInstanceState.getParcelableArrayList(Budget.BUDGETS);
     updateCategory();
     updateBudget();
+    updateTargetBudget();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -162,6 +163,18 @@ public final class TransactionFormActivity extends AppCompatActivity
     int position = findBudgetPosition(mTransaction.getIdBudget());
     if (position > -1) {
       mView.budget.setText(mBudgets.get(position).getTitle());
+    }
+  }
+
+  private void updateTargetBudget() {
+    int position = findBudgetPosition(mTransaction.getIdTargetBudget());
+    if (position > -1) {
+      mView.targetBudget.setText(mBudgets.get(position).getTitle());
+    } else {
+      if(!mBudgets.isEmpty()) {
+        mTransaction.setIdTargetBudget(mBudgets.get(0).getId());
+        mView.targetBudget.setText(mBudgets.get(0).getTitle());
+      }
     }
   }
 
@@ -285,6 +298,7 @@ public final class TransactionFormActivity extends AppCompatActivity
 
   @Override public void onBudgetsLoaded(@NonNull ArrayList<Budget> budgets) {
     mBudgets = budgets;
+    updateTargetBudget();
   }
 
   @Override public void onError(@Nullable final String error) {
