@@ -6,7 +6,7 @@ An Android application for budget management
     <img src="https://raw.github.com/7h1b0/Budget/master/framed.png" alt="Budget"/>
 </p>
 
-## Troubleshootin
+## Troubleshooting
 
 # Unable to load class 'javax.xml.bind.annotation.XmlSchema'
 Go to /Library/Java/JavaVirtualMachines.
@@ -31,4 +31,36 @@ to
 Install Android SDK Platform 27
 
 # Debug
-Uninstall app on android device
+Click force close, and open app again.
+
+## Technical
+# Currency input
+mView.value.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+      private String current = "";
+      @Override
+      public void afterTextChanged(Editable s) {
+        if(!s.toString().equals(current)){
+          mView.value.removeTextChangedListener(this);
+
+          String cleanString = s.toString().replaceAll("[$,.]", "");
+
+          double parsed = Double.parseDouble(cleanString);
+          String formatted = CurrencyUtil.formatToUSD(parsed/100);
+          //String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
+
+          current = formatted;
+          mView.value.setText(formatted);
+          mView.value.setSelection(formatted.length());
+          mView.value.addTextChangedListener(this);
+          }
+      }
+    });

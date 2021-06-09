@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,10 +25,12 @@ import com.th1b0.budget.model.Budget;
 import com.th1b0.budget.model.Category;
 import com.th1b0.budget.model.Transaction;
 import com.th1b0.budget.util.BudgetPickerDialog;
+import com.th1b0.budget.util.CurrencyUtil;
 import com.th1b0.budget.util.DataManager;
 import com.th1b0.budget.util.DateUtil;
 import com.th1b0.budget.util.TargetBudgetPickerDialog;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -143,7 +147,7 @@ public final class TransactionFormActivity extends AppCompatActivity
   private void fillForm() {
     mView.description.setText(mTransaction.getDescription());
     if (mTransaction.getValue() != 0) {
-      mView.value.setText(String.valueOf(mTransaction.getValue()));
+      mView.value.setText(CurrencyUtil.formatToUSD(mTransaction.getValue()));
     }
     updateDate();
   }
@@ -207,7 +211,45 @@ public final class TransactionFormActivity extends AppCompatActivity
     });
 
     mView.thousand.setOnClickListener(v -> {
-      mView.value.setText(mView.value.getText() + "000");
+      if(mView.value.getText().length() > 0) {
+        String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
+        double parsed = Double.parseDouble(cleanString);
+        String formatted = CurrencyUtil.formatToUSD(parsed*10);
+        mView.value.setText(formatted);
+        mView.value.setSelection(formatted.length());
+        //double dValue = Double.parseDouble(CurrencyUtil.removeCurrencySymbol(mView.value.getText().toString())) * 1000;
+        //mView.value.setText(CurrencyUtil.formatToUSD(dValue));
+      }
+    });
+
+    mView.value.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+      private String current = "";
+      @Override
+      public void afterTextChanged(Editable s) {
+        if(!s.toString().equals(current)){
+          mView.value.removeTextChangedListener(this);
+
+          String cleanString = s.toString().replaceAll("[$,.]", "");
+
+          double parsed = Double.parseDouble(cleanString);
+          String formatted = CurrencyUtil.formatToUSD(parsed/100);
+          //String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
+
+          current = formatted;
+          mView.value.setText(formatted);
+          mView.value.setSelection(formatted.length());
+          mView.value.addTextChangedListener(this);
+          }
+      }
     });
   }
 
