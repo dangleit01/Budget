@@ -59,8 +59,8 @@ final class TransactionFormPresenterImpl extends PresenterImpl<TransactionFormVi
         .map(budgets -> {
           TransactionFormView view = getView();
           if (view != null) {
-            budgets.add(0,
-                new Budget(Budget.NONE, getView().getContext().getString(R.string.none), 0));
+            /*budgets.add(0,
+                new Budget(Budget.NONE, getView().getContext().getString(R.string.none), 0));*/
             return budgets;
           }
           return null;
