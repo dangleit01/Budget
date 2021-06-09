@@ -147,7 +147,8 @@ public final class TransactionFormActivity extends AppCompatActivity
   private void fillForm() {
     mView.description.setText(mTransaction.getDescription());
     if (mTransaction.getValue() != 0) {
-      mView.value.setText(CurrencyUtil.formatToUSD(mTransaction.getValue()));
+      String formatted = CurrencyUtil.formatToUSD(mTransaction.getValue());
+      mView.value.setText(formatted);
     }
     updateDate();
   }
@@ -213,8 +214,8 @@ public final class TransactionFormActivity extends AppCompatActivity
     mView.thousand.setOnClickListener(v -> {
       if(mView.value.getText().length() > 0) {
         String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
-        double parsed = Double.parseDouble(cleanString);
-        String formatted = CurrencyUtil.formatToUSD(parsed*10);
+        double parsed = Double.parseDouble(cleanString)/100;
+        String formatted = CurrencyUtil.formatToUSD(parsed*1000);
         mView.value.setText(formatted);
         mView.value.setSelection(formatted.length());
         //double dValue = Double.parseDouble(CurrencyUtil.removeCurrencySymbol(mView.value.getText().toString())) * 1000;
@@ -240,8 +241,8 @@ public final class TransactionFormActivity extends AppCompatActivity
 
           String cleanString = s.toString().replaceAll("[$,.]", "");
 
-          double parsed = Double.parseDouble(cleanString);
-          String formatted = CurrencyUtil.formatToUSD(parsed/100);
+          double parsed = Double.parseDouble(cleanString)/100;
+          String formatted = CurrencyUtil.formatToUSD(parsed);
           //String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
 
           current = formatted;
@@ -257,8 +258,9 @@ public final class TransactionFormActivity extends AppCompatActivity
     mTransaction.setDescription(mView.description.getText().toString());
 
     try {
-      double value = Double.parseDouble(mView.value.getText().toString());
-      mTransaction.setValue(value);
+      String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
+      double parsed = Double.parseDouble(cleanString)/100;
+      mTransaction.setValue(parsed);
     } catch (NumberFormatException e) {
       // Don't update transaction value;
     }
