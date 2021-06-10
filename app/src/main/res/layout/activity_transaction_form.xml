@@ -128,45 +128,10 @@
 
                     </FrameLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-                        <TextView
-                            android:id="@+id/hundred_thousand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_huge"
-                            android:text="@string/hundred_thousand" />
-
-                        <TextView
-                            android:id="@+id/thousand"
-                            style="@style/TextBody"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/spacing_tiny"
-                            android:text="@string/thousand" />
-
-                        <TextView
-                            android:id="@+id/hundred"
-                            style="@style/TextBody"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/spacing_tiny"
-                            android:text="@string/hundred" />
-
-                        <TextView
-                            android:id="@+id/ten"
-                            style="@style/TextBody"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/spacing_tiny"
-                            android:text="@string/ten" />
-                    </LinearLayout>
+                    <include
+                        layout="@layout/adding_to_number"
+                        android:id="@+id/adding_to_number"
+                        />
 
                     <!-- Budget -->
                     <RelativeLayout

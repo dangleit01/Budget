@@ -256,7 +256,7 @@ public final class TransactionFormActivity extends AppCompatActivity
       FromBudgetPickerDialog.newInstance(mBudgets, position).show(getFragmentManager(), null);
     });
 
-    mView.thousand.setOnClickListener(v -> {
+    mView.addingToNumber.thousand.setOnClickListener(v -> {
       if(mView.value.getText().length() > 0) {
         String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
         double parsed = Double.parseDouble(cleanString)/100;
@@ -268,7 +268,7 @@ public final class TransactionFormActivity extends AppCompatActivity
       }
     });
 
-    mView.hundredThousand.setOnClickListener(v -> {
+    mView.addingToNumber.hundredThousand.setOnClickListener(v -> {
       if(mView.value.getText().length() > 0) {
         String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
         double parsed = Double.parseDouble(cleanString)/100;
@@ -280,7 +280,7 @@ public final class TransactionFormActivity extends AppCompatActivity
       }
     });
 
-    mView.hundred.setOnClickListener(v -> {
+    mView.addingToNumber.hundred.setOnClickListener(v -> {
       if(mView.value.getText().length() > 0) {
         String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
         double parsed = Double.parseDouble(cleanString)/100;
@@ -292,7 +292,7 @@ public final class TransactionFormActivity extends AppCompatActivity
       }
     });
 
-    mView.ten.setOnClickListener(v -> {
+    mView.addingToNumber.ten.setOnClickListener(v -> {
       if(mView.value.getText().length() > 0) {
         String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
         double parsed = Double.parseDouble(cleanString)/100;
