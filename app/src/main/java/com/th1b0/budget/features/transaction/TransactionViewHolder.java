@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.th1b0.budget.R;
 import com.th1b0.budget.model.Transaction;
+import com.th1b0.budget.util.CurrencyUtil;
 import com.th1b0.budget.util.DateUtil;
 
 import java.text.DecimalFormat;
@@ -37,8 +38,7 @@ final class TransactionViewHolder extends RecyclerView.ViewHolder {
     date.setText(
         DateUtil.formatDate(transaction.getYear(), transaction.getMonth(), transaction.getDay()));
 
-    NumberFormat formatter = new DecimalFormat(value.getContext().getString(R.string.decimal_format));
-    value.setText(formatter.format(transaction.getValue()));
+    value.setText(CurrencyUtil.formatToUSD(transaction.getValue()));
     //value.setText(value.getContext().getString(R.string.float_value, transaction.getValue()));
     category.setImageResource(transaction.getIcon());
 
