@@ -6,9 +6,9 @@ An Android application for budget management
     <img src="https://raw.github.com/7h1b0/Budget/master/framed.png" alt="Budget"/>
 </p>
 
-## Troubleshooting
+# Troubleshooting
 
-# Unable to load class 'javax.xml.bind.annotation.XmlSchema'
+## Unable to load class 'javax.xml.bind.annotation.XmlSchema'
 Go to /Library/Java/JavaVirtualMachines.
 Remove the directory whose name matches the following format by executing the rm command as a root user or by using the sudo tool:
 /Library/Java/JavaVirtualMachines/jdk-interim.update.patch.jdk
@@ -18,7 +18,7 @@ $ rm -rf jdk-10.0.2.1.jdk
 
 install jdk 8
 
-# Could not initialize class com.android.sdklib.repository.AndroidSdkHandler
+## Could not initialize class com.android.sdklib.repository.AndroidSdkHandler
     
 JDK Location
 Project Structure/SDK Location
@@ -27,10 +27,10 @@ Change
 to
 /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk
 
-# Failed to find target with hash string 'android-27' in: /Users/dangle/Library/Android/sdk
+## Failed to find target with hash string 'android-27' in: /Users/dangle/Library/Android/sdk
 Install Android SDK Platform 27
 
-# Cannot resolve symbol 'R'
+## Cannot resolve symbol 'R'
 Mismatch among ApplicationId in gradle and package name in manifes
 change package="com.dlit01.budget" => package="com.dlit01.budget"
 Then
@@ -38,11 +38,11 @@ Build -> clean project
 Build -> rebuild project
 (Maybe Restart android studio) 
 
-# Debug
+## Debug
 Click debug many until ok.
 
-## Technical
-# Currency input
+# Technical
+## Currency input
 mView.value.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,7 +74,7 @@ mView.value.addTextChangedListener(new TextWatcher() {
     });
     
     
-# android save state onPause
+## android save state onPause
 https://stackoverflow.com/questions/10906219/save-state-for-onpause-and-onresume
 
-# Build with logs
+## Build with logs
