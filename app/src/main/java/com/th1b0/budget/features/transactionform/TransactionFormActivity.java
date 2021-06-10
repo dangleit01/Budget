@@ -268,6 +268,42 @@ public final class TransactionFormActivity extends AppCompatActivity
       }
     });
 
+    mView.hundredThousand.setOnClickListener(v -> {
+      if(mView.value.getText().length() > 0) {
+        String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
+        double parsed = Double.parseDouble(cleanString)/100;
+        String formatted = CurrencyUtil.formatToUSD(parsed*100000);
+        mView.value.setText(formatted);
+        mView.value.setSelection(formatted.length());
+        //double dValue = Double.parseDouble(CurrencyUtil.removeCurrencySymbol(mView.value.getText().toString())) * 1000;
+        //mView.value.setText(CurrencyUtil.formatToUSD(dValue));
+      }
+    });
+
+    mView.hundred.setOnClickListener(v -> {
+      if(mView.value.getText().length() > 0) {
+        String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
+        double parsed = Double.parseDouble(cleanString)/100;
+        String formatted = CurrencyUtil.formatToUSD(parsed*100);
+        mView.value.setText(formatted);
+        mView.value.setSelection(formatted.length());
+        //double dValue = Double.parseDouble(CurrencyUtil.removeCurrencySymbol(mView.value.getText().toString())) * 1000;
+        //mView.value.setText(CurrencyUtil.formatToUSD(dValue));
+      }
+    });
+
+    mView.ten.setOnClickListener(v -> {
+      if(mView.value.getText().length() > 0) {
+        String cleanString = mView.value.getText().toString().toString().replaceAll("[$,.]", "");
+        double parsed = Double.parseDouble(cleanString)/100;
+        String formatted = CurrencyUtil.formatToUSD(parsed*10);
+        mView.value.setText(formatted);
+        mView.value.setSelection(formatted.length());
+        //double dValue = Double.parseDouble(CurrencyUtil.removeCurrencySymbol(mView.value.getText().toString())) * 1000;
+        //mView.value.setText(CurrencyUtil.formatToUSD(dValue));
+      }
+    });
+
     mView.value.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {

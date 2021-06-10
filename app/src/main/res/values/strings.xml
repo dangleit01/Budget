@@ -64,5 +64,8 @@
     <string name="hobby">Hobby</string>
     <string name="shopping">Shopping</string>
     <string name="transport">Transport</string>
-    <string name="thousand">000</string>
+    <string name="thousand">x1000</string>
+    <string name="hundred_thousand">x100,000</string>
+    <string name="hundred">x100</string>
+    <string name="ten">x10</string>
 </resources>
