@@ -64,3 +64,7 @@ mView.value.addTextChangedListener(new TextWatcher() {
           }
       }
     });
+    
+    
+# android save state onPause
+https://stackoverflow.com/questions/10906219/save-state-for-onpause-and-onresume

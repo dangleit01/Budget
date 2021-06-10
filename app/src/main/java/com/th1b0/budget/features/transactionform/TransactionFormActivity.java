@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,11 +41,21 @@ public final class TransactionFormActivity extends AppCompatActivity
     implements DatePickerDialog.OnDateSetListener, CategoryDialog.OnCategorySet,
     TransactionFormView, BudgetPickerDialog.OnBudgetSet, FromBudgetPickerDialog.OnFromBudgetSet {
 
+  public static final String DESCRIPTION = "description";
+  public static final String CATEGORY = "category";
+  public static final String BUDGET = "budget";
+  public static final String FROM_BUDGET = "from_budget";
+
   private ActivityTransactionFormBinding mView;
   private Transaction mTransaction;
   private TransactionFormPresenter mPresenter;
   private ArrayList<Category> mCategories;
   private ArrayList<Budget> mBudgets;
+  private SharedPreferences mSharedPreferences;
+  private long mCategoryId;
+  private String mDescription;
+  private long mBudgetId;
+  private long mFromBudgetId;
 
   public static Intent newInstance(@NonNull Context context) {
     return new Intent(context, TransactionFormActivity.class);
@@ -70,6 +81,24 @@ public final class TransactionFormActivity extends AppCompatActivity
       mTransaction = getIntent().getExtras().getParcelable(Transaction.TRANSACTION);
     } else {
       mTransaction = new Transaction();
+    }
+    this.mSharedPreferences = getPreferences(MODE_PRIVATE);
+    this.mCategoryId = mSharedPreferences.getLong(TransactionFormActivity.CATEGORY, -1);
+    if (mCategoryId > 0) {
+      mTransaction.setIdCategory(this.mCategoryId);
+    }
+    this.mDescription = mSharedPreferences.getString(TransactionFormActivity.DESCRIPTION, "");
+    if (mDescription != "") {
+      mTransaction.setDescription(this.mDescription);
+    }
+    this.mBudgetId = mSharedPreferences.getLong(TransactionFormActivity.BUDGET, -1);
+    if (mBudgetId > 0) {
+      mTransaction.setIdBudget(this.mBudgetId);
+    }
+
+    this.mFromBudgetId = mSharedPreferences.getLong(TransactionFormActivity.FROM_BUDGET, -1);
+    if (mFromBudgetId > 0) {
+      mTransaction.setIdFromBudget(this.mFromBudgetId);
     }
 
     setupToolbar();
@@ -128,6 +157,12 @@ public final class TransactionFormActivity extends AppCompatActivity
 
   @Override protected void onStop() {
     super.onStop();
+    SharedPreferences.Editor editor = this.mSharedPreferences.edit();
+    editor.putLong(TransactionFormActivity.CATEGORY, mTransaction.getIdCategory());
+    editor.putString(TransactionFormActivity.DESCRIPTION, mTransaction.getDescription());
+    editor.putLong(TransactionFormActivity.BUDGET, mTransaction.getIdBudget());
+    editor.putLong(TransactionFormActivity.FROM_BUDGET, mTransaction.getIdFromBudget());
+    editor.commit();
     mPresenter.detach();
   }
 
@@ -150,6 +185,7 @@ public final class TransactionFormActivity extends AppCompatActivity
       String formatted = CurrencyUtil.formatToUSD(mTransaction.getValue());
       mView.value.setText(formatted);
     }
+
     updateDate();
   }
 
@@ -347,10 +383,19 @@ public final class TransactionFormActivity extends AppCompatActivity
   @Override public void onCategoriesLoaded(@NonNull ArrayList<Category> categories) {
     mCategories = categories;
 
+    updateTransaction();
+
+    updateCategory();
+    updateDescription();
+    updateBudget();
+    updateFromBudget();
+  }
+
+  private void updateTransaction() {
     Category category;
     int positionCategory = findCategoryPosition(mTransaction.getIdCategory());
     if (positionCategory == -1) {
-      category = categories.get(0);
+      category = mCategories.get(0);
       mTransaction.setIdCategory(category.getId());
     } else {
       category = mCategories.get(positionCategory);
@@ -377,11 +422,6 @@ public final class TransactionFormActivity extends AppCompatActivity
         mTransaction.setIdFromBudget(mBudgets.get(0).getId());
       }
     }
-
-    updateCategory();
-    updateDescription();
-    updateBudget();
-    updateFromBudget();
   }
 
   @Override public void onBudgetsLoaded(@NonNull ArrayList<Budget> budgets) {
