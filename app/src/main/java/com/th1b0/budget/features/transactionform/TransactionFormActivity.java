@@ -82,23 +82,26 @@ public final class TransactionFormActivity extends AppCompatActivity
     } else {
       mTransaction = new Transaction();
     }
-    this.mSharedPreferences = getPreferences(MODE_PRIVATE);
-    this.mCategoryId = mSharedPreferences.getLong(TransactionFormActivity.CATEGORY, -1);
-    if (mCategoryId > 0) {
-      mTransaction.setIdCategory(this.mCategoryId);
-    }
-    this.mDescription = mSharedPreferences.getString(TransactionFormActivity.DESCRIPTION, "");
-    if (mDescription != "") {
-      mTransaction.setDescription(this.mDescription);
-    }
-    this.mBudgetId = mSharedPreferences.getLong(TransactionFormActivity.BUDGET, -1);
-    if (mBudgetId > 0) {
-      mTransaction.setIdBudget(this.mBudgetId);
-    }
 
-    this.mFromBudgetId = mSharedPreferences.getLong(TransactionFormActivity.FROM_BUDGET, -1);
-    if (mFromBudgetId > 0) {
-      mTransaction.setIdFromBudget(this.mFromBudgetId);
+    this.mSharedPreferences = getPreferences(MODE_PRIVATE);
+    if (!isEditMode()) {
+      this.mCategoryId = mSharedPreferences.getLong(TransactionFormActivity.CATEGORY, -1);
+      if (mCategoryId > 0) {
+        mTransaction.setIdCategory(this.mCategoryId);
+      }
+      this.mDescription = mSharedPreferences.getString(TransactionFormActivity.DESCRIPTION, "");
+      if (mDescription != "") {
+        mTransaction.setDescription(this.mDescription);
+      }
+      this.mBudgetId = mSharedPreferences.getLong(TransactionFormActivity.BUDGET, -1);
+      if (mBudgetId > 0) {
+        mTransaction.setIdBudget(this.mBudgetId);
+      }
+
+      this.mFromBudgetId = mSharedPreferences.getLong(TransactionFormActivity.FROM_BUDGET, -1);
+      if (mFromBudgetId > 0) {
+        mTransaction.setIdFromBudget(this.mFromBudgetId);
+      }
     }
 
     setupToolbar();
@@ -108,6 +111,8 @@ public final class TransactionFormActivity extends AppCompatActivity
     if (!isCategoriesAndBudgetsLoaded(savedInstanceState)) {
       mPresenter.loadCategoriesAndBudgets();
     }
+
+    mView.value.requestFocus();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
