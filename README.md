@@ -30,6 +30,14 @@ to
 # Failed to find target with hash string 'android-27' in: /Users/dangle/Library/Android/sdk
 Install Android SDK Platform 27
 
+# Cannot resolve symbol 'R'
+Mismatch among ApplicationId in gradle and package name in manifes
+change package="com.dlit01.budget" => package="com.dlit01.budget"
+Then
+Build -> clean project
+Build -> rebuild project
+(Maybe Restart android studio) 
+
 # Debug
 Click debug many until ok.
 
@@ -68,3 +76,5 @@ mView.value.addTextChangedListener(new TextWatcher() {
     
 # android save state onPause
 https://stackoverflow.com/questions/10906219/save-state-for-onpause-and-onresume
+
+# Build with logs

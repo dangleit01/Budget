@@ -6,9 +6,9 @@
       android:shortcutShortLabel="@string/add_transaction_short"
       android:shortcutLongLabel="@string/add_transaction">
     <intent
-        android:action="com.th1b0.budget.ADD_TRANSACTION"
-        android:targetPackage="com.th1b0.budget"
-        android:targetClass="com.th1b0.budget.app.MainActivity" />
+        android:action="com.dlit01.budget.ADD_TRANSACTION"
+        android:targetPackage="com.dlit01.budget"
+        android:targetClass="com.dlit01.budget.app.MainActivity" />
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
 
@@ -18,9 +18,9 @@
       android:shortcutShortLabel="@string/add_budget_short"
       android:shortcutLongLabel="@string/add_budget">
     <intent
-        android:action="com.th1b0.budget.ADD_BUDGET"
-        android:targetPackage="com.th1b0.budget"
-        android:targetClass="com.th1b0.budget.app.MainActivity" />
+        android:action="com.dlit01.budget.ADD_BUDGET"
+        android:targetPackage="com.dlit01.budget"
+        android:targetClass="com.dlit01.budget.app.MainActivity" />
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
 </shortcuts>
