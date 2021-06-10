@@ -89,6 +89,10 @@
                         </android.support.design.widget.TextInputLayout>
 
                     </FrameLayout>
+                    <include
+                        layout="@layout/adding_to_number"
+                        android:id="@+id/adding_to_number"
+                        />
 
                 </LinearLayout>
 
