@@ -4,7 +4,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
-    <string name="valid">Valid</string>
+    <string name="ok">Ok</string>
     <string name="loading">Loading</string>
 
     <string name="error_occurred">Error occurred</string>
@@ -20,6 +20,7 @@
 
     <string name="float_value">$%1$.2f</string>
     <string name="budget_of_goal">$%1$.2f of $%2$.2f</string>
+    <string name="adding">&#160;adding&#160;</string>
     <string name="decimal_format">$ ###,###.###</string>
 
     <string name="title">Title</string>
@@ -30,9 +31,11 @@
     <string name="category">Category</string>
     <string name="budgets">Budgets</string>
     <string name="budget">Budget</string>
+    <string name="from_budget">From Budget</string>
     <string name="budget_label">Budget: %1$s</string>
     <string name="no_default_budget">No default budget</string>
     <string name="default_budget">Default budget</string>
+    <string name="default_from_budget">Default from budget</string>
     <string name="none">None</string>
     <string name="home">Home</string>
     <string name="transactions">Transactions</string>
@@ -53,6 +56,7 @@
     <string name="set_budget">Set budget</string>
     <string name="set_icon">Set icon</string>
     <string name="no_empty_field">No empty field</string>
+    <string name="no_same_budget">Budget and from budget must be different</string>
 
     <!-- Categories -->
     <string name="food">Food</string>
@@ -60,4 +64,8 @@
     <string name="hobby">Hobby</string>
     <string name="shopping">Shopping</string>
     <string name="transport">Transport</string>
+    <string name="thousand">x1000</string>
+    <string name="hundred_thousand">x100,000</string>
+    <string name="hundred">x100</string>
+    <string name="ten">x10</string>
 </resources>

@@ -30,67 +30,6 @@
                     android:orientation="vertical"
                     >
 
-
-                    <!-- Description -->
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/description_input_layout"
-                        android:layout_gravity="bottom"
-                        android:layout_marginEnd="@dimen/spacing_medium"
-                        android:layout_marginStart="@dimen/spacing_medium"
-                        style="@style/Input"
-                        >
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/description"
-                            android:inputType="text"
-                            android:textColor="?attr/textColor"
-                            android:textSize="@dimen/font_headline"
-                            />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?attr/dividerColor"
-                        />
-
-                    <!-- Value -->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="@dimen/item_height_double"
-                        android:orientation="horizontal"
-                        >
-
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/spacing_medium"
-                            android:src="@mipmap/ic_value"
-                            style="@style/IconShort"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/value_input_layout"
-                            android:layout_marginStart="@dimen/spacing_huge"
-                            style="@style/Input"
-                            >
-
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/value"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/value"
-                                android:inputType="numberDecimal|numberSigned"
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-
-                    </FrameLayout>
-
                     <!-- Category -->
                     <RelativeLayout
                         android:id="@+id/category_layout"
@@ -130,6 +69,70 @@
 
                     </RelativeLayout>
 
+                    <!-- Description -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/description_input_layout"
+                        android:layout_gravity="bottom"
+                        android:layout_marginEnd="@dimen/spacing_medium"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        style="@style/Input"
+                        >
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/description"
+                            android:inputType="text"
+                            android:textColor="?attr/textColor"
+                            android:textSize="@dimen/font_headline"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/dividerColor"
+                        />
+
+                    <!-- Value -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/item_height_double"
+                        android:orientation="horizontal"
+                        >
+
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/spacing_medium"
+                            android:src="@mipmap/ic_usd_dollar"
+                            style="@style/IconShort"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/value_input_layout"
+                            android:layout_marginStart="@dimen/spacing_huge"
+                            style="@style/Input"
+                            >
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/value"
+                                android:inputType="numberDecimal|numberSigned"
+                                />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/adding_to_number"
+                        android:id="@+id/adding_to_number"
+                        />
+
                     <!-- Budget -->
                     <RelativeLayout
                         android:id="@+id/container_layout"
@@ -165,6 +168,53 @@
                             android:layout_marginStart="@dimen/spacing_huge"
                             android:text="@string/loading"
                             style="@style/TextSubheadOneLine"
+                            />
+
+                    </RelativeLayout>
+
+                    <!-- From Budget -->
+                    <RelativeLayout
+                        android:id="@+id/container_layout_from_budget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        >
+
+                        <ImageView
+                            android:id="@+id/container_icon_from_budget"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/spacing_medium"
+                            android:src="@mipmap/ic_container"
+                            android:layout_centerVertical="true"
+                            style="@style/IconShort"
+                            />
+
+                        <TextView
+                            android:id="@+id/container_title_from_budget"
+                            android:layout_toEndOf="@+id/container_icon_from_budget"
+                            style="@style/TextBody"
+                            android:layout_marginStart="32dp"
+                            android:text="@string/from_budget"
+                            />
+
+                        <TextView
+                            android:id="@+id/from_budget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/container_title_from_budget"
+                            android:layout_marginEnd="@dimen/spacing_medium"
+                            android:layout_marginStart="@dimen/spacing_huge"
+                            android:text="@string/loading"
+                            style="@style/TextSubheadOneLine"
+                            />
+
+                        <TextView
+                            android:id="@+id/from_budget_error"
+                            android:layout_below="@+id/from_budget"
+                            style="@style/TextError"
+                            android:layout_marginStart="72dp"
+                            android:visibility="gone"
                             />
 
                     </RelativeLayout>

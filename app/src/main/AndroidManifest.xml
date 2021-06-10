@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.th1b0.budget">
+    package="com.dlit01.budget">
 
     <application
         android:allowBackup="true"
@@ -32,10 +32,6 @@
 
         <activity
             android:name=".features.budgetform.BudgetFormActivity"
-            android:theme="@style/AppTheme"/>
-
-        <activity
-            android:name=".features.detailmonth.DetailMonthActivity"
             android:theme="@style/AppTheme"/>
 
     </application>

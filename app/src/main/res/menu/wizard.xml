@@ -5,7 +5,7 @@
     <item
         android:id="@+id/save"
         android:icon="@mipmap/ic_valid"
-        android:title="@string/valid"
+        android:title="@string/ok"
         app:showAsAction="always"/>
 
 </menu>

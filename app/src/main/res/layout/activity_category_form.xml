@@ -52,6 +52,27 @@
 
           </android.support.design.widget.TextInputLayout>
 
+          <!-- Description -->
+          <android.support.design.widget.TextInputLayout
+              android:id="@+id/description_input_layout"
+              android:layout_gravity="bottom"
+              android:layout_marginEnd="@dimen/spacing_medium"
+              android:layout_marginStart="@dimen/spacing_medium"
+              style="@style/Input"
+              >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                android:inputType="text"
+                android:textColor="?attr/textColor"
+                android:textSize="@dimen/font_headline"
+                />
+
+          </android.support.design.widget.TextInputLayout>
+
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
@@ -155,6 +176,37 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="@dimen/spacing_medium"
                 tools:text="My budget"
+                style="@style/TextSubheadOneLine"
+                />
+
+          </FrameLayout>
+
+          <!-- From Budget -->
+          <FrameLayout
+              android:id="@+id/container_layout_from_budget"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              >
+
+            <TextView
+                android:id="@+id/icon_title_from_budget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_large"
+                android:paddingTop="@dimen/spacing_large"
+                android:text="@string/default_from_budget"
+                style="@style/TextSubheadOneLine"
+                />
+
+            <TextView
+                android:id="@+id/from_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                tools:text="My from budget"
                 style="@style/TextSubheadOneLine"
                 />
 
